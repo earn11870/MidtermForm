@@ -1,0 +1,93 @@
+<body>
+
+
+    <div class="a">
+        <form [formGroup]="formfill">
+
+            <head>
+                <link rel="stylesheet" href="bookaflight.component.css">
+            </head>
+            <h1>Book a Flight</h1>
+            <label>Full Name</label>
+            <span style="color : red;" *ngIf="formfill.get('fullName')?.errors?.['required']"> * required</span><br>
+            <input formControlName="fullName">
+
+            <div>
+                <label>From</label>
+                <span style="color : red;" *ngIf="formfill.get('from')?.errors?.['required']"> * required</span>
+                <select formControlName="from"><br>
+              <option>----select----</option>
+              <option *ngFor="let o of country" [ngValue]="o.named">{{o.named}}</option>
+            </select>
+            </div>
+            <div>
+                <label>To</label>
+                <span style="color : red;" *ngIf="formfill.get('to')?.errors?.['required']"> * required</span>
+                <select formControlName="to"><br>
+              <option [ngValue]="null" disabled>----select----</option>
+              <option *ngFor="let o of country" [ngValue]="o.named">{{o.named}}</option>
+            </select>
+            </div>
+            <div>
+                <label>Trip Type</label>
+                <span style="color : red;" *ngIf="formfill.get('type')?.errors?.['required']"> * required</span>
+                <input type="radio" value="One way" formControlName="type">One way
+                <input type="radio" value="Return" formControlName="type">Return
+            </div>
+            <div>
+                <label>Departure</label>
+                <span style="color : red;" *ngIf="formfill.get('departure')?.errors?.['required']"> * required</span>
+                <input id="date" type="date" min="{{newDate|date:'yyyy-dd-MM'}}" formControlName="departure">
+            </div>
+            <div>
+                <label>Arrival</label>
+                <span style="color : red;" *ngIf="formfill.get('arrival')?.errors?.['required']"> * required</span>
+                <input id="date" type="date" min="{{formfill.get('departure')?.value}}" formControlName="arrival">
+            </div>
+            <div>
+                <label>Adults</label>
+                <input formControlName="adults" min="0" max="9" placeholder="0">
+                <span style="color : red;" *ngIf="formfill.get('adults')?.errors?.['required']"> * required</span>
+                <span style="color : red;" *ngIf="formfill.get('adults')?.errors?.['pattern']"></span><br>
+            </div>
+            <div>
+                <label>Children</label>
+                <input formControlName="children" min="0" max="9" placeholder="0">
+                <span style="color : red;" *ngIf="formfill.get('children')?.errors?.['pattern']"></span><br>
+            </div>
+            <div>
+                <label>Infants</label>
+                <input formControlName="infants" min="0" max="9" placeholder="0">
+                <span style="color : red;" *ngIf="formfill.get('infants')?.errors?.['pattern']"></span><br>
+            </div>
+            <button id="bb" (click)="onSubmit(formfill.value)" [disabled]="formfill.invalid">Submit</button>
+            <br><br>
+            <div class="a">
+                <table class="a">
+                    <tr>
+                        <th>fullName</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Type</th>
+                        <th>Departure</th>
+                        <th>Arrival</th>
+                        <th>Adults</th>
+                        <th>Children</th>
+                        <th>Infants</th>
+                    </tr>
+                    <tr *ngFor="let e of fillin">
+                        <td>{{e.fullName}}</td>
+                        <td>{{e.from}}</td>
+                        <td>{{e.to}}</td>
+                        <td>{{e.type}}</td>
+                        <td>{{e.departure | date: "dd/MM/yyyy"}}</td>
+                        <td>{{e.arrival | date: "dd/MM/yyyy"}} </td>
+                        <td>{{e.adults}}</td>
+                        <td>{{e.children}}</td>
+                        <td>{{e.infants}}</td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+</body>
